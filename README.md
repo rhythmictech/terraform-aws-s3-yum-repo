@@ -26,12 +26,14 @@ module "example" {
 |------|---------|
 | terraform | >= 0.12.19 |
 | aws | >= 2.65 |
+| template | >= 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | aws | >= 2.65 |
+| template | >= 2.0 |
 
 ## Inputs
 
@@ -40,7 +42,7 @@ module "example" {
 | allow\_public\_access | Whether bucket can be public. A public bucket policy will be created regardless of value but will allow public access. Further, a public acl will be used if true. Bucket policy may be used to restrict by CIDRs and other values. | `bool` | `false` | no |
 | bucket\_access\_logging\_bucket | Optional target for S3 access logging | `string` | `null` | no |
 | bucket\_access\_logging\_prefix | Optional target prefix for S3 access logging (only used if `bucket_access_logging_bucket != null`) | `string` | `null` | no |
-| bucket\_kms\_key | KMS key to use (default is the AWS-managed CMK) | `string` | `"aws/s3"` | no |
+| bucket\_kms\_key | KMS key to use (default is the AWS-managed CMK) | `string` | `null` | no |
 | bucket\_name | Name to apply to bucket (use `bucket_name` or `bucket_suffix`) | `string` | `null` | no |
 | bucket\_suffix | Suffix to apply to the bucket (use `bucket_name` or `bucket_suffix`). When using `bucket_suffix`, the bucket name will be `[account_id]-[region]-[bucket_suffix].` | `string` | `"yumrepo"` | no |
 | bucket\_versioning\_enabled | Enable bucket versioning? | `string` | `true` | no |

@@ -68,6 +68,10 @@ resource "aws_s3_bucket" "this" {
     enabled = var.bucket_versioning_enabled
   }
 
+  website {
+    index_document = "index.html"
+  }
+
   lifecycle {
     ignore_changes = [versioning[0].mfa_delete]
   }
@@ -79,4 +83,56 @@ resource "aws_s3_bucket_public_access_block" "this" {
   block_public_policy     = ! var.allow_public_access
   ignore_public_acls      = ! var.allow_public_access
   restrict_public_buckets = ! var.allow_public_access
+}
+
+data "aws_iam_policy_document" "this" {
+  statement {
+    effect    = "Allow"
+    resources = [aws_s3_bucket.this.arn]
+
+    actions = [
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+    ]
+
+    principals {
+      identifiers = ["*"]
+      type        = "AWS"
+    }
+  }
+
+  statement {
+    actions   = ["s3:GetObject"]
+    effect    = "Allow"
+    resources = ["${aws_s3_bucket.this.arn}/*"]
+
+    principals {
+      identifiers = ["*"]
+      type        = "AWS"
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "this" {
+  bucket = aws_s3_bucket.this.id
+  policy = data.aws_iam_policy_document.this.json
+}
+
+
+data "template_file" "this" {
+  template = <<END
+<html>
+<header><title>Repository</title></head>
+<body>
+<h1>Repository</h1>
+</body>
+</html>
+END
+}
+
+resource "aws_s3_bucket_object" "this" {
+  bucket       = aws_s3_bucket.this.bucket
+  content      = data.template_file.this.rendered
+  content_type = "text/html"
+  key          = "index.html"
 }

@@ -17,7 +17,7 @@ variable "bucket_access_logging_prefix" {
 }
 
 variable "bucket_kms_key" {
-  default     = "aws/s3"
+  default     = null
   description = "KMS key to use (default is the AWS-managed CMK)"
   type        = string
 }
