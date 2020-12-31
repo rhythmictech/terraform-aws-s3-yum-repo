@@ -8,6 +8,11 @@ output "yum_repo_bucket_domain_name" {
   value       = aws_s3_bucket.this.website_domain
 }
 
+output "yum_repo_bucket_hosted_zone_id" {
+  description = "Repo Bucket Hosted Zone ID"
+  value       = aws_s3_bucket.this.hosted_zone_id
+}
+
 output "yum_repo_bucket_name" {
   description = "Repo Bucket Name"
   value       = aws_s3_bucket.this.bucket

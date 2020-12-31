@@ -55,6 +55,7 @@ module "example" {
 |------|-------------|
 | yum\_repo\_bucket\_arn | Repo Bucket ARN |
 | yum\_repo\_bucket\_domain\_name | Repo Bucket Domain Name |
+| yum\_repo\_bucket\_hosted\_zone\_id | Repo Bucket Hosted Zone ID |
 | yum\_repo\_bucket\_name | Repo Bucket Name |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
