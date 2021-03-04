@@ -6,7 +6,7 @@ data "aws_region" "current" {
 
 locals {
   account_id = data.aws_caller_identity.current.account_id
-  bucket_acl = var.allow_public_access ? "public" : "private"
+  bucket_acl = var.allow_public_access ? "public-read" : "private"
   region     = data.aws_region.current.name
 
   bucket_name = coalesce(
