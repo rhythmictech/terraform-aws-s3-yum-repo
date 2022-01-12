@@ -56,7 +56,7 @@ resource "aws_s3_bucket" "this" {
   }
 
   dynamic "server_side_encryption_configuration" {
-    for_each = var.sse_enabled ? [] : ["one"]
+    for_each = var.sse_enabled ? ["one"] : []
 
     content {
       rule {
