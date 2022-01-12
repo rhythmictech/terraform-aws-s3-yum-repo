@@ -2,7 +2,9 @@
 module "example" {
   source = "../.."
 
-  name = "test"
+  tags = {
+    name = "test"
+  }
 }
 
 output "example" {
