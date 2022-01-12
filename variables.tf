@@ -18,7 +18,7 @@ variable "bucket_access_logging_prefix" {
 
 variable "bucket_kms_key" {
   default     = null
-  description = "KMS key to use (default is the AWS-managed CMK)"
+  description = "KMS key to use (default is the AWS-managed CMK). var.sse_enabled must be true"
   type        = string
 }
 
@@ -51,6 +51,12 @@ variable "lifecycle_rules" {
       expiration                    = number
       noncurrent_version_expiration = number
   }))
+}
+
+variable "sse_enabled" {
+  default     = true
+  description = "Boolean to enable SSE. must be true for bucket_kms_key to have an a effect"
+  type        = bool
 }
 
 variable "tags" {

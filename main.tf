@@ -55,11 +55,15 @@ resource "aws_s3_bucket" "this" {
     }
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = var.bucket_kms_key
-        sse_algorithm     = "aws:kms"
+  dynamic "server_side_encryption_configuration" {
+    for_each = var.sse_enabled ? [] : ["one"]
+
+    content {
+      rule {
+        apply_server_side_encryption_by_default {
+          kms_master_key_id = var.bucket_kms_key
+          sse_algorithm     = "aws:kms"
+        }
       }
     }
   }
